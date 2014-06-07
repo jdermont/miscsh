@@ -37,3 +37,11 @@ Parallel version, -P N means N threads
 ```sh
 find -name "*.mp3" -print0 | xargs -0 -P 4 -n 1 mp3gain -r -k
 ```
+
+### dd with 'progress'
+
+pv - pipe viewer
+
+```sh
+dd if=/dev/zero bs=1M | pv | dd of=plik bs=1M
+```
