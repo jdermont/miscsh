@@ -25,3 +25,15 @@ Images probably the same: images/tumblr_m311112xhc1qath333_1280.jpg images/dir/t
 Some random commands.
 ======
 
+### Normalize mp3 volume
+
+mp3gain adjusts mp3 files volume so they should have the same volume level. Does it losslessly, so the process is reversible.
+-r - apply Track gain automatically; -k - automatically lower Track gain to not clip audio
+
+```sh
+find -name "*.mp3" -exec mp3gain -r -k {} \;
+```
+Parallel version, -P N means N threads
+```sh
+find -name "*.mp3" -print0 | xargs -0 -P 4 -n 1 mp3gain -r -k
+```
