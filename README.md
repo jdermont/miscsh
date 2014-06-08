@@ -25,7 +25,7 @@ Images probably the same: images/tumblr_m311112xhc1qath333_1280.jpg images/dir/t
 Some random commands.
 ======
 
-### Normalize mp3 volume
+### normalize mp3 volume
 
 mp3gain adjusts mp3 files volume so they should have the same volume level. Does it losslessly, so the process is reversible.
 -r - apply Track gain automatically; -k - automatically lower Track gain to not clip audio
@@ -68,4 +68,13 @@ function secure_chromium {
     chromium &
     exit
 }
+```
+
+### extract aac from youtube video downloaded by youtube-dl
+
+This method extracts aac from youtube video (at least fairly new videos are encoded in aac), then packs again to .m4a format. It is lossless (no further recompression after downloading video from youtube). In this example aac is put in #2 Track. To check what this video is made of, you may want to use mediainfo video.mp4
+
+```sh
+MP4Box -raw 2 video.mp4
+MP4Box -add video_track2.aac#audio output.m4a
 ```
