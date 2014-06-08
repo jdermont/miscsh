@@ -43,5 +43,29 @@ find -name "*.mp3" -print0 | xargs -0 -P 4 -n 1 mp3gain -r -k
 pv - pipe viewer
 
 ```sh
-dd if=/dev/zero bs=1M | pv | dd of=plik bs=1M
+dd if=/dev/zero bs=1M | pv | dd of=some_file bs=1M
+```
+
+### ssh SOCKS tunnel + chromium proxy example
+
+-T - disables pseudo-tty allocation, -N disables iteractive prompt, -D specifies local port
+
+```sh
+ssh -TND 8940 user@remote_server
+```
+
+Chromium
+
+```sh
+chromium --proxy-server="socks5://localhost:8940" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"
+```
+or something to add to .bash.rc
+```sh
+function secure_chromium {
+    port=8940
+    export SOCKS_SERVER=localhost:$port
+    export SOCKS_VERSION=5
+    chromium &
+    exit
+}
 ```
