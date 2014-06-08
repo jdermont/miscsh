@@ -78,3 +78,21 @@ This method extracts aac from youtube video (at least fairly new videos are enco
 MP4Box -raw 2 video.mp4
 MP4Box -add video_track2.aac#audio output.m4a
 ```
+
+### bash history tweaks
+
+erase duplicate commands in your history
+```sh
+export HISTCONTROL="erasedups:ignoreboth"
+```
+
+increase history bash size
+```sh
+export HISTFILESIZE=100000
+export HISTSIZE=10000
+```
+
+don't save to .bash_history. "incognito mode" for tty
+```sh
+unset HISTFILE
+```
