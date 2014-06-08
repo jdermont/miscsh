@@ -114,3 +114,35 @@ size of entire directory
 ```sh
 du -hs .
 ```
+
+### images further lossless recompression
+
+jpgcrush reduces jpeg size by about 5%~10%
+```sh
+find -regex ".*\.\(jpg\|jpeg\)$" -exec jpgcrush {} \;
+```
+
+optipng and/or pngcrush reduce png size up to 10%
+pngcrush
+```sh
+find -iname "*.png" -exec pngcrush -brute {} {} \;
+```
+optipng
+```sh
+find -iname "*.png" -exec optipng -o7 {} \;
+```
+
+[packjpg](http://www.elektronik.htw-aalen.de/packjpg/) is jpeg lossless compressor which averagily reduces jpg files by 20%~25%. This is a kind of "zip" for jpg files.
+```sh
+find -regex ".*\.\(jpg\|jpeg\)$" -exec packjpg -np {} \;
+```
+to decompress
+```sh
+find -iname "*.pjg" -exec packjpg -np {} \;
+```
+
+parallel version example of the above commands (pngcrush would need some tweaks)
+-P 4 - 4 threads, -n 1 - 1 file per thread, you might want to increase to e.x. -n 10 to get slightly more speed
+```sh
+find -regex ".*\.\(jpg\|jpeg\)$" -print0 | xargs -0 -P 4 -n 1 jpgcrush
+```
