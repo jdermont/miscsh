@@ -72,7 +72,7 @@ function secure_chromium {
 
 ### extract aac from youtube video downloaded by youtube-dl
 
-This method extracts aac from youtube video (at least fairly new videos are encoded in aac), then packs again to .m4a format. It is lossless (no further recompression after downloading video from youtube). In this example aac is put in #2 Track. To check what this video is made of, you may want to use mediainfo video.mp4
+This method extracts aac (audio) from youtube video (at least fairly new videos' audio is encoded in aac), then packs again to .m4a format. It is lossless (no further recompression after downloading video from youtube). In this example aac is put in #2 Track. To check what this video is made of, you may want to use mediainfo video.mp4
 
 ```sh
 MP4Box -raw 2 video.mp4
@@ -80,6 +80,8 @@ MP4Box -add video_track2.aac#audio output.m4a
 ```
 
 ### bash history tweaks
+
+There works until you close the tty. To make them permanent you should write to .bashrc
 
 erase duplicate commands in your history
 ```sh
@@ -95,4 +97,20 @@ export HISTSIZE=10000
 don't save to .bash_history. "incognito mode" for tty
 ```sh
 unset HISTFILE
+```
+
+### filesize of directories, only files..., etc.
+
+sum of file size from current directory (or recursively with -R switch), only files
+```sh
+ls -al . | grep -E '^-' | awk '{ SUM += $5} END { print "SUM: " SUM/1024/1024 " MiB" }'
+```
+using find
+```sh
+find . -maxdepth 1 -type f -exec ls -l {} \; | awk '{ SUM += $5} END { print "SUM: " SUM/1024/1024 " MiB" }'
+```
+
+size of entire directory
+```sh
+du -hs .
 ```
